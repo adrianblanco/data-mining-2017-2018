@@ -10,11 +10,13 @@ No olvidéis cargar el paquete:
 library(rvest)
 ```
 
-Asociamos a la variable url el enlace donde se encuentra la tabala de datos que queremos extraer:
+Asociamos a la variable url el enlace donde se encuentra la tabala de datos que queremos extraer. En este caso un artículo de Wikiedia que incluye una tabla con el porcentaje de impuesto de sociedades que se paga en diferentes países:
 
 ```
 url <- "https://en.wikipedia.org/wiki/Corporate_tax"
 ```
+
+Al ser un enlace, R lo interpreta como un texto y siempre va entre comillas.
 
 A continuación, escribimos una serie de funciones pertenecientrs al paquete rvest para:
 * leer y almacenar el html
@@ -31,7 +33,6 @@ is  <- url %>%
 El resultado lo guardamos en la variable 'is' que hace renferencia a impuesto de sociedades.
 
 Si escribimos is en la consola, comprobamos como, a pesar de haber realizado una extracción bastante limpia de los datos, todavía hay que hacer algún trabajo de limpieza. Por ejemplo, todas las columnas de la tabla extraída están en formato 'character'. Para poder visaulizarlas debemos convertirlas a número y eliminar el símbolo del %.
-
 
 Para limpiar la base de datos, utilizaremos el paquete tidyverse. Primero, como siempre, lo instalamos:
 
@@ -88,6 +89,7 @@ visualizar <- ggplot(data=bar, aes(x=country, y=corporate_tax)) +
      geom_bar(stat="identity")
 ```
 
+Comprobamos que hemos escrito el código correctamente:
 
 ```
 visualizar
