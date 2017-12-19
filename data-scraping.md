@@ -104,3 +104,32 @@ p + coord_flip()
 El resultado:
 
 IMG
+
+
+
+
+library(rvest)
+library(tidyverse)
+
+url <- "https://en.wikipedia.org/wiki/Major_religious_groups"
+
+islimpio <- url %>% 
+     read_html() %>% 
+     html_node(xpath='//*[@id="mw-content-text"]/div/table[2]') %>% 
+     html_table() %>% as_tibble() %>% 
+     setNames(c("religion", "number", "culture", "founded", "references"))
+ 
+islimpio
+
+bar <- islimpio %>% 
+      mutate(number=as.factor(str_replace(number, "[:alnum:][:alnum:] !", ""))
+      )
+bar
+
+prueba <- bar %>%
+     mutate(number=as.factor(gsub(",", "", number)))
+     
+prueba
+
+visualizar <- ggplot(data=prueba, aes(x=religion, y=number)) +
+          geom_bar(stat="identity")
