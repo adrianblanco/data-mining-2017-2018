@@ -133,3 +133,5 @@ prueba
 
 visualizar <- ggplot(data=prueba, aes(x=religion, y=number)) +
           geom_bar(stat="identity")
+
+http://stringr.tidyverse.org/articles/regular-expressions.html
