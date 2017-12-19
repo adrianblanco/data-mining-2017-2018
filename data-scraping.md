@@ -1,10 +1,11 @@
 Instalamos el paquete rvest. ¿Para qué sirve?
+La principal función de rvest es extraer datos de la web.
 
 ```
 install.packages("rvest")
 ```
 
-No olvidéis cargar el paquete:
+Una vez instalado, no olvidéis cargar el paquete:
 
 ```
 library(rvest)
@@ -20,7 +21,7 @@ Al ser un enlace, R lo interpreta como un texto y siempre va entre comillas.
 
 A continuación, escribimos una serie de funciones pertenecientrs al paquete rvest para:
 * leer y almacenar el html
-* recorrer e identificar mediante el path xml dónde está la tabla que queremos extraer
+* recorrer e identificar mediante path xml dónde está la tabla que queremos extraer
 * extraer la tabla del html y guardarla en R
 
 ```
@@ -51,7 +52,7 @@ Para extraer lps datos de forma adecuada, debemos hacer unos cambios en el códi
      # your xpath defines the single table, so you can use html_node() instead of html_nodes()
 
 ```
-corporatetax <- url %>% 
+islimpio <- url %>% 
      read_html() %>% 
      html_node(xpath='//*[@id="mw-content-text"]/div/table[5]') %>% 
      html_table() %>% as_tibble() %>% 
@@ -61,13 +62,13 @@ corporatetax <- url %>%
 Escribimos el nombre de la variable para comprobar que la extracción ha sido la correcta:
 
 ```
-corporatetax
+islimpio
 ```
 
 Ahora es momento de convetir lls caracteres en númsros para poder visualizar qué impuesto de sociedades tiene cada uno de los países analizados. Para ello utilizaremos la función 'mutate':
 
 ```
-bar <- corporatetax %>% 
+bar <- islimpio %>% 
      mutate(corporate_tax=as.numeric(str_replace(corporate_tax, "%", "")),
             combined_tax=as.numeric(str_replace(combined_tax, "%", ""))
      )
